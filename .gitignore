@@ -4,3 +4,4 @@
 src/sdl2-cffi.lisp
 src/sdl2-macros.lisp
 .plant/
+ocicl/
