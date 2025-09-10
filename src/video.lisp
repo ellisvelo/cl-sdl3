@@ -86,8 +86,12 @@ located at 0,0."
 
 (defun create-window (&key (title "SDL3 Window") (x :centered) (y :centered) (w 800) (h 600) (flags 0))
   (let* ((window-flags (mask-apply 'sdl-window-flags flags))
-	 (window (check-nullptr (sdl-create-window title w h window-flags))))
-    (set-window-position window x y)
+	 (window (check-nullptr (sdl-create-window title w h window-flags)))
+	 (driver (get-current-video-driver)))
+    ;; Wayland doesn't allow window exact placement and causes an error
+    ;; https://wayland-book.com/xdg-shell-in-depth/interactive.html
+    (when (not (string= driver "wayland"))
+      (set-window-position window x y))
     window))
 
 (defun destroy-window (win)
