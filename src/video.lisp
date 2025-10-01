@@ -31,9 +31,9 @@
   (let ((result (check-nullptr (sdl-get-current-display-mode display-id))))
     (c-let ((display-mode sdl3-ffi:sdl-display-mode :from result))
       (values (display-mode :format)
-	      (display-mode :w)
-	      (display-mode :h)
-	      (display-mode :refresh-rate)))))
+              (display-mode :w)
+              (display-mode :h)
+              (display-mode :refresh-rate)))))
 
 (defun get-display-bounds (display-index)
   "Use this function to get the desktop area represented by a display, with the primary display
@@ -86,8 +86,8 @@ located at 0,0."
 
 (defun create-window (&key (title "SDL3 Window") (x :centered) (y :centered) (w 800) (h 600) (flags 0))
   (let* ((window-flags (mask-apply 'sdl-window-flags flags))
-	 (window (check-nullptr (sdl-create-window title w h window-flags)))
-	 (driver (get-current-video-driver)))
+         (window (check-nullptr (sdl-create-window title w h window-flags)))
+         (driver (get-current-video-driver)))
     ;; Wayland doesn't allow window exact placement and causes an error
     ;; https://wayland-book.com/xdg-shell-in-depth/interactive.html
     (when (not (string= driver "wayland"))
@@ -100,7 +100,7 @@ located at 0,0."
   (values))
 
 (defmacro with-window ((win &key (title "SDL3 Window") (x :centered) (y :centered) (w 800) (h 600) flags)
-		       &body body)
+                       &body body)
   "Creates an SDL3 window, executes the body of code, and then destroys the
 window."
   `(let ((,win (create-window :title ,title :x ,x :y ,y :w ,w :h ,h :flags ,flags)))
@@ -163,8 +163,8 @@ fullscreen, using `SDL_WINDOW_FULLSCREEN_DESKTOP`."
 (defun set-window-position (win x y)
   "Request that the window's position be set."
   (check-false (sdl-set-window-position win
-					(windowpos-from-coord x)
-					(windowpos-from-coord y))))
+                                        (windowpos-from-coord x)
+                                        (windowpos-from-coord y))))
 
 (defun get-window-title (win)
   (sdl-get-window-title win))

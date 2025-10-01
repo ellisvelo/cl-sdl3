@@ -115,7 +115,7 @@ are locked during enumeration."
 (autowrap:defcallback get-all-properties-cb :int ((user-data :pointer) (props sdl3-ffi:sdl-properties-id) (name (:pointer :char)))
   (declare (ignore user-data))
   (let* ((prop-name (cffi:foreign-string-to-lisp name))
-	 (prop-value (get-property-value props prop-name)))
+         (prop-value (get-property-value props prop-name)))
     (setf (gethash prop-name *props-hash*) prop-value)
     0))
 

@@ -31,28 +31,28 @@
           (format t "Opening gamepads.~%")
           (finish-output)
           ;; open any game gamepads
-	  (let ((joysticks (sdl3:get-joysticks)))
-	    (format t "Joystick count: ~a~%" (list-length joysticks))
-	    (mapc #'(lambda (id)
-		      (format t "Found gamepad: ~a~%" (sdl3:get-gamepad-name-for-id id))
-		      (let* ((gp (sdl3:open-gamepad id))
-			     (joy (sdl3:get-gamepad-joystick gp)))
-			(when (sdl3:joystick-has-rumble-p joy)
-			  (format t "Rumble supported ~a~%" joy)
-			  (sdl3:rumble-joystick joy #x3FFF  #xFFFF 500))
+          (let ((joysticks (sdl3:get-joysticks)))
+            (format t "Joystick count: ~a~%" (list-length joysticks))
+            (mapc #'(lambda (id)
+                      (format t "Found gamepad: ~a~%" (sdl3:get-gamepad-name-for-id id))
+                      (let* ((gp (sdl3:open-gamepad id))
+                             (joy (sdl3:get-gamepad-joystick gp)))
+                        (when (sdl3:joystick-has-rumble-p joy)
+                          (format t "Rumble supported ~a~%" joy)
+                          (sdl3:rumble-joystick joy #x3FFF  #xFFFF 500))
 
-			(when (sdl3:is-joystick-haptic-p joy)
-			  (format t "Found haptic for ~a~%" joy)
+                        (when (sdl3:is-joystick-haptic-p joy)
+                          (format t "Found haptic for ~a~%" joy)
                               (let ((h (sdl3:open-haptic-from-joystick joy)))
-				(setf haptic (acons id h haptic))
-				(sdl3:init-haptic-rumble h)))
+                                (setf haptic (acons id h haptic))
+                                (sdl3:init-haptic-rumble h)))
 
-			(setf gamepads (acons id gp gamepads)))) joysticks))
+                        (setf gamepads (acons id gp gamepads)))) joysticks))
 
-	  ;; Print any open audio playback devices
-	  (let ((playback-devices (sdl3:get-audio-playback-devices)))
-	    (mapc #'(lambda (id)
-		      (format t "Audio Playback: ~a~%" (sdl3:get-audio-device-name id))) playback-devices))
+          ;; Print any open audio playback devices
+          (let ((playback-devices (sdl3:get-audio-playback-devices)))
+            (mapc #'(lambda (id)
+                      (format t "Audio Playback: ~a~%" (sdl3:get-audio-device-name id))) playback-devices))
 
           ;; main loop
           (format t "Beginning main loop.~%")
@@ -60,15 +60,15 @@
           (sdl3:with-event-loop (:method :poll)
             (:key-down (:scancode scancode)
                        (cond
-			 ((sdl3:scancode= scancode :e) (error "Demonstrate SDL restarts"))
+                         ((sdl3:scancode= scancode :e) (error "Demonstrate SDL restarts"))
                          ((sdl3:scancode= scancode :w)
-			  (format t "~a~%" "WALK"))
+                          (format t "~a~%" "WALK"))
 
                          ((sdl3:scancode= scancode :s)
-			  (sdl3:show-cursor))
+                          (sdl3:show-cursor))
 
                          ((sdl3:scancode= scancode :h)
-			  (sdl3:hide-cursor))))
+                          (sdl3:hide-cursor))))
 
             (:key-up (:scancode scancode)
                      (when (sdl3:scancode= scancode :escape)
@@ -79,14 +79,14 @@
                                    x xrel y yrel state))
 
             (:gamepad-axis-motion
-	     (:which controller-id :axis axis-id :value value)
+             (:which controller-id :axis axis-id :value value)
              (format t "Controller axis motion: Controller: ~a, Axis: ~a, Value: ~a~%"
                      controller-id axis-id value))
 
             (:gamepad-button-down (:which controller-id)
-				  (let ((h (cdr (assoc controller-id haptic))))
-				    (when h
-				      (sdl3:rumble-gamepad h 0.1 1.0 100))))
+                                  (let ((h (cdr (assoc controller-id haptic))))
+                                    (when h
+                                      (sdl3:rumble-gamepad h 0.1 1.0 100))))
 
             (:idle ()
                    (gl:clear :color-buffer)

@@ -43,15 +43,15 @@
 (defmethod print-object ((point sdl3-ffi:sdl-point) stream)
   (if (autowrap:valid-p point)
       (c-point (point)
-	(print-unreadable-object (point stream :type t :identity t)
-	  (format stream "x ~A y ~A" (point :x) (point :y))))
+        (print-unreadable-object (point stream :type t :identity t)
+          (format stream "x ~A y ~A" (point :x) (point :y))))
       (call-next-method)))
 
 (defmethod print-object ((point sdl3-ffi:sdl-f-point) stream)
   (if (autowrap:valid-p point)
       (c-f-point (point)
-	(print-unreadable-object (point stream :type t :identity t)
-	  (format stream "x ~A y ~A" (point :x) (point :y))))
+        (print-unreadable-object (point stream :type t :identity t)
+          (format stream "x ~A y ~A" (point :x) (point :y))))
       (call-next-method)))
 
 (defun copy-point (point)
@@ -78,11 +78,11 @@ dest-point."
     ((symbolp binding)
      `(let ((,binding (,make-point-fn ,default-value ,default-value)))
         (unwind-protect (progn ,@body)
-	  (free-point ,binding))))
+          (free-point ,binding))))
     ((= (length binding) 3)
      `(let ((,(first binding) (,make-point-fn ,@(cdr binding))))
-	(unwind-protect (progn ,@body)
-	  (free-point ,(first binding)))))
+        (unwind-protect (progn ,@body)
+          (free-point ,(first binding)))))
     (t
      (error "with-point: Must have a binding of either a symbol or a symbol and 2 forms which are ~
 x y of a point"))))
@@ -204,11 +204,11 @@ dest-rect."
     ((symbolp binding)
      `(let ((,binding (make-rect 0 0 0 0)))
         (unwind-protect (progn ,@body)
-	  (free-rect ,binding))))
+          (free-rect ,binding))))
     ((= (length binding) 5)
      `(let ((,(first binding) (make-rect ,@(cdr binding))))
         (unwind-protect (progn ,@body)
-	  (free-rect ,(first binding)))))
+          (free-rect ,(first binding)))))
     (t
      (error "with-rect: Must have a binding of either a symbol or a symbol and 4 forms which are ~
 x y w h of a rectangle"))))

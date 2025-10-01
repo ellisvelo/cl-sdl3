@@ -46,12 +46,12 @@
 
 (defun limit-value (value min-value max-value)
   (cond ((< value min-value)
-	 min-value)
+         min-value)
 
-	((> value max-value)
-	 max-value)
+        ((> value max-value)
+         max-value)
 
-	(t value)))
+        (t value)))
 
 (defun move-square (square)
   (with-slots (x y w h max-x max-y vx vy) square
@@ -69,18 +69,18 @@
 (defun handle-gamepad-motion (square axis-id value)
   (with-slots (vx vy max-vx max-vy) square
     (cond ((= sdl3:+gamepad-axis-leftx+ axis-id)
-	   (cond ((> value *gamepad-dead-zone*)
-		  (incf vx 0.5))
+           (cond ((> value *gamepad-dead-zone*)
+                  (incf vx 0.5))
 
-		 ((< value (- *gamepad-dead-zone*))
-		  (decf vx 0.5))))
+                 ((< value (- *gamepad-dead-zone*))
+                  (decf vx 0.5))))
 
-	  ((= sdl3:+gamepad-axis-lefty+ axis-id)
-	   (cond ((> value *gamepad-dead-zone*)
-		  (incf vy 0.5))
+          ((= sdl3:+gamepad-axis-lefty+ axis-id)
+           (cond ((> value *gamepad-dead-zone*)
+                  (incf vy 0.5))
 
-		 ((< value (- *gamepad-dead-zone*))
-		  (decf vy 0.5)))))
+                 ((< value (- *gamepad-dead-zone*))
+                  (decf vy 0.5)))))
 
     (setf vx (limit-value vx (- max-vx) max-vx))
     (setf vy (limit-value vy (- max-vy) max-vy))))

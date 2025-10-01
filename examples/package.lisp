@@ -8,4 +8,4 @@
            #:joystick-test
            #:properties-test
            #:renderer-test
-	   #:cairo-test))
+           #:cairo-test))

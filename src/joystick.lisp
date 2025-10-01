@@ -59,8 +59,8 @@ This function is called automatically by the event loop if joystick events are
   "Get the connection state of a joystick."
   (let ((state (sdl-get-joystick-connection-state joystick)))
     (if (= state sdl3-ffi:+sdl-joystick-connection-unknown+)
-	(error 'sdl-error :string (sdl-get-error))
-	(autowrap:enum-key 'sdl3-ffi:sdl-joystick-connection-state state))))
+        (error 'sdl-error :string (sdl-get-error))
+        (autowrap:enum-key 'sdl3-ffi:sdl-joystick-connection-state state))))
 
 (defun rumble-joystick (joystick low-frequency-rumble high-frequency-rumble duration-ms)
   "Start a rumble effect for a duration of DURATION-MS. The low and high

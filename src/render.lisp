@@ -11,14 +11,14 @@
   (c-let ((winptr :pointer :free t)
           (rendptr :pointer :free t))
     (check-rc (sdl-create-window-and-renderer
-	       title
-	       width
-	       height
-	       (if window-flags
-		   (mask-apply 'sdl3-ffi:sdl-window-flags window-flags)
-		   0)
-	       (winptr &)
-	       (rendptr &)))
+               title
+               width
+               height
+               (if window-flags
+                   (mask-apply 'sdl3-ffi:sdl-window-flags window-flags)
+                   0)
+               (winptr &)
+               (rendptr &)))
     (let ((window (sdl3-ffi::make-sdl-window :ptr winptr))
           (renderer (sdl3-ffi::make-sdl-renderer :ptr rendptr)))
       (values window renderer))))
@@ -88,9 +88,9 @@ flipping it top-bottom and/or left-right."
 (defun get-render-draw-color (renderer)
   "Use this function to get the current color used by renderer for drawing operations"
   (c-with ((r sdl3-ffi:uint8)
-	   (g sdl3-ffi:uint8)
-	   (b sdl3-ffi:uint8)
-	   (a sdl3-ffi:uint8))
+           (g sdl3-ffi:uint8)
+           (b sdl3-ffi:uint8)
+           (a sdl3-ffi:uint8))
     (check-rc (sdl-get-render-draw-color renderer (r &) (g &) (b &) (a &)))
     (values r g b a)))
 

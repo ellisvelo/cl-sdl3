@@ -122,7 +122,7 @@ returning an SDL_true into CL's boolean type system."
                    (sdl-quit
                      (lambda (c)
                        (declare (ignore c))
-		       (when chan (sendmsg chan nil))
+                       (when chan (sendmsg chan nil))
                        (quit)
                        (return-from handle-message))))
       (handler-bind ((error (lambda (e) (setf condition e))))
@@ -252,7 +252,7 @@ thread."
   `(progn
      (init ,@sdl-init-flags)
      (unwind-protect
-	  (in-main-thread () ,@body)
+          (in-main-thread () ,@body)
        (quit))))
 
 (defun niy (message)
@@ -268,15 +268,15 @@ thread."
   "Get the version of SDL that is linked against your program and return the
  major, minor, and micro version."
   (let* ((version (sdl-get-version))
-	 (major (floor (/ version 1000000)))
-	 (minor (floor (mod (/ version 1000) 1000)))
-	 (micro (mod version 1000)))
+         (major (floor (/ version 1000000)))
+         (minor (floor (mod (/ version 1000) 1000)))
+         (micro (mod version 1000)))
     (values major minor micro)))
 
 (defun version-wrapped ()
   (values sdl3-ffi:+sdl-major-version+
           sdl3-ffi:+sdl-minor-version+
-	  sdl3-ffi:+sdl-micro-version+))
+          sdl3-ffi:+sdl-micro-version+))
 
 (defun get-error ()
   "Get the last error that was set for the current thread."
