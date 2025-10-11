@@ -1,6 +1,6 @@
 # cl-sdl3
 
-`cl-sdl3` is a Common Lisp wrapper for the SDL 3.0 C Library, with [many contributors](https://github.com/lispgames/cl-sdl3/graphs/contributors).
+`cl-sdl3` is a Common Lisp wrapper for the SDL 3.0 C Library.
 
 It is licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
@@ -9,7 +9,7 @@ It is licensed under the [MIT license](https://opensource.org/licenses/MIT).
 sdl3 is in Quicklisp, see below for instructions.
 
 ## SDL 3.0 C Library Install
-See https://wiki.libsdl.org/Installation
+See https://wiki.libsdl.org/SDL3/FrontPage
 
 On Linux, you can probably find SDL3 in your distribution's package
 set.  For other platforms, or for building manually, [download the
@@ -36,44 +36,20 @@ If you need to compile from source for your Linux platform:
 For example:
 ```bash
 cd /tmp
-wget https://www.libsdl.org/release/SDL3-3.2.8.tar.gz
-tar -xzvf SDL3-?.?.tar.gz
-cd SDL3-?.?
+wget https://github.com/libsdl-org/SDL/archive/refs/tags/release-3.2.24.tar.gz
+tar -xzvf release-3.2.24.tar.gz
+cd SDL-release-3.2.24
 cmake -S . -B build
 cmake --build build
 sudo cmake --install build --prefix /usr/local
 ```
 
-This will install the SDL-3.0.x C Library into your /usr/local location.
+This will install the SDL-3.2.x C Library into your /usr/local location.
 
-It's generally a good idea to install at a minimum the version of SDL3
-that was wrapped; however, sub revisions should not introduce binary
-incompatibility and should be fine.  If you install a different
-version, certain features may not be available or may not work
-correctly.
-
-## Quicklisp Install
-
-sdl3 is best installed via QuickLisp, though for cutting-edge changes,
-you may want to install from github as below.
-
-If you don't have Quicklisp, then follow [the
-directions](http://www.quicklisp.org/beta/) to install it. We assume
-you placed the Quicklisp repository in the default place as indicated
-by the directions and have added it to your lisp init file.
-
-## github install
-```bash
-cd $HOME/projects
-git clone https://github.com/lispgames/cl-sdl3.git
-```
-Then, use quicklisp to install the libraries required by cl-sdl3:
-
-Start your lisp. Then, just:
-
-```lisp
-(ql:quickload "sdl3")
-```
+It's generally a good idea to install at a minimum the version of SDL3 that was
+wrapped; however, sub revisions should not introduce binary incompatibility and
+should be fine.  If you install a different version, certain features may not be
+available or may not work correctly.
 
 ## Ocicl Install
 
@@ -87,6 +63,26 @@ Start your lisp and then:
 
 ```lisp
 (asdf:load-system :sdl3)
+```
+
+## Quicklisp Install
+
+If you don't have Quicklisp, then follow [the
+directions](http://www.quicklisp.org/beta/) to install it. We assume
+you placed the Quicklisp repository in the default place as indicated
+by the directions and have added it to your lisp init file.
+
+## Github install
+```bash
+cd $HOME/quicklisp-local-projects
+git clone https://github.com/ellisvelo/cl-sdl3.git
+```
+Then, use quicklisp to install the libraries required by cl-sdl3:
+
+Start your lisp. Then, just:
+
+```lisp
+(ql:quickload :sdl3)
 ```
 
 ## Swank/Slynk features
@@ -117,16 +113,18 @@ Start your lisp:
 
 This example will open a window with an opengl primitive in it. Any mouse
 movements or keystrokes are recorded in the terminal (or emacs SLIME output
-buffer ```*inferior-lisp*```). Hitting the ESCAPE key will terminate the example.
+buffer ```*inferior-lisp*```). Hitting the ESCAPE key will terminate the
+example.
 
-## OSX
+## macOS
 
-Newer versions of OSX have had some difficulties as calls which require
-`nextEventMatchingMask` must be called from the main thread of your program.
+MacOS has difficulties as calls which require `nextEventMatchingMask` must be
+called from the main thread of your program.
 
-This is especially relevant to SBCL, although issues have also been noticed in CCL.
+This is especially relevant to SBCL, although issues have also been noticed in
+CCL.
 
-Currently, initialisation must take place on your main thread:
+Currently, initialisation must take place on the main thread:
 
 ```lisp
 (asdf:load-system :sdl3-examples)
