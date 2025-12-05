@@ -12,11 +12,11 @@ cffi-toolchain, ghcr.io/ocicl/cffi@sha256:386698d4f568be8c321ca8f54247a8bf692228
 cffi-uffi-compat, ghcr.io/ocicl/cffi@sha256:386698d4f568be8c321ca8f54247a8bf69222819c116c011d6ae53d80772f611, cffi-20250311-48eaef6/cffi-uffi-compat.asd
 cl-autowrap, ghcr.io/ocicl/cl-autowrap@sha256:d06030b141e58af6a1ebbeed29831195247a6f34c3c81e1dba6d190156a25160, cl-autowrap-20240503-4bba9e3/cl-autowrap.asd
 cl-autowrap-test, ghcr.io/ocicl/cl-autowrap@sha256:d06030b141e58af6a1ebbeed29831195247a6f34c3c81e1dba6d190156a25160, cl-autowrap-20240503-4bba9e3/cl-autowrap-test.asd
-cl-glu, ghcr.io/ocicl/cl-opengl@sha256:5e6026c394ce940ed4925582683aab367deb59c25eb2ff03864f83d4047b9e21, cl-opengl-20240816-2ca2a24/cl-glu.asd
-cl-glut, ghcr.io/ocicl/cl-opengl@sha256:5e6026c394ce940ed4925582683aab367deb59c25eb2ff03864f83d4047b9e21, cl-opengl-20240816-2ca2a24/cl-glut.asd
-cl-glut-examples, ghcr.io/ocicl/cl-opengl@sha256:5e6026c394ce940ed4925582683aab367deb59c25eb2ff03864f83d4047b9e21, cl-opengl-20240816-2ca2a24/cl-glut-examples.asd
+cl-glu, ghcr.io/ocicl/cl-opengl@sha256:e8503356507afab0cda2bf336273cc48faeabe540bbefa17764f8f699a41010a, cl-opengl-20250614-377a091/cl-glu.asd
+cl-glut, ghcr.io/ocicl/cl-opengl@sha256:e8503356507afab0cda2bf336273cc48faeabe540bbefa17764f8f699a41010a, cl-opengl-20250614-377a091/cl-glut.asd
+cl-glut-examples, ghcr.io/ocicl/cl-opengl@sha256:e8503356507afab0cda2bf336273cc48faeabe540bbefa17764f8f699a41010a, cl-opengl-20250614-377a091/cl-glut-examples.asd
 cl-json, ghcr.io/ocicl/cl-json@sha256:54c4d00901c2c5b0ea9da11eed8f0104fc5819e1ed9a29d1f3364503a720a868, cl-json-20240907-994dd38/cl-json.asd
-cl-opengl, ghcr.io/ocicl/cl-opengl@sha256:5e6026c394ce940ed4925582683aab367deb59c25eb2ff03864f83d4047b9e21, cl-opengl-20240816-2ca2a24/cl-opengl.asd
+cl-opengl, ghcr.io/ocicl/cl-opengl@sha256:e8503356507afab0cda2bf336273cc48faeabe540bbefa17764f8f699a41010a, cl-opengl-20250614-377a091/cl-opengl.asd
 cl-plus-c, ghcr.io/ocicl/cl-autowrap@sha256:d06030b141e58af6a1ebbeed29831195247a6f34c3c81e1dba6d190156a25160, cl-autowrap-20240503-4bba9e3/cl-plus-c.asd
 cl-ppcre, ghcr.io/ocicl/cl-ppcre@sha256:584907e0683621973579f397115945ef73e9d5b7afa77fae7cacecb3ad272f89, cl-ppcre-20240503-80fb19d/cl-ppcre.asd
 cl-ppcre-unicode, ghcr.io/ocicl/cl-ppcre@sha256:584907e0683621973579f397115945ef73e9d5b7afa77fae7cacecb3ad272f89, cl-ppcre-20240503-80fb19d/cl-ppcre-unicode.asd
