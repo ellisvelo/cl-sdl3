@@ -328,6 +328,8 @@
    #:destroy-texture
    #:lock-texture
    #:unlock-texture
+   #:get-render-logical-presentation
+   #:set-render-logical-presentation
 
    ;; haptic.lisp
    #:get-haptics

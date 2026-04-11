@@ -251,3 +251,15 @@ rendering target with the drawing color."
   "Use this function to unlock a texture, uploading the changes to video memory, if needed. Warning:
 See Bug No. 1586 before using this function!"
   (sdl-unlock-texture texture))
+
+(defun get-render-logical-presentation (renderer)
+  "Get device independent resolution and presentation mode for rendering."
+  (c-with ((width :int)
+           (height :int)
+           (mode sdl3-ffi:sdl-renderer-logical-presentation))
+    (check-rc (sdl-get-render-logical-presentation renderer (width &) (height &) (mode &)))
+    (values width height (autowrap:enum-key 'sdl3-ffi:sdl-renderer-logical-presentation mode))))
+
+(defun set-render-logical-presentation (renderer width height mode)
+  "Set a device-independent resolution and presentation mode for rendering."
+  (check-rc (sdl-set-render-logical-presentation renderer width height mode)))
