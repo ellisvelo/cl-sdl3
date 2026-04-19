@@ -42,6 +42,8 @@
    #:sdl-rc-error
 
    ;; audio.lisp
+   #:+audio-device-default-playback+
+   #:+audio-device-default-recording+
    #:get-audio-playback-devices
    #:get-audio-recording-devices
    #:get-audio-device-name

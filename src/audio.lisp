@@ -2,6 +2,9 @@
 
 ;; A start to the SDL3 audio interface.
 
+(defconstant +audio-device-default-playback+ sdl3-ffi:+sdl-audio-device-default-playback+)
+(defconstant +audio-device-default-recording+ sdl3-ffi:+sdl-audio-device-default-recording+)
+
 ;; These are #defines, but really should have been enums....
 
 (autowrap:define-enum-from-constants (sdl-audio-mask)
