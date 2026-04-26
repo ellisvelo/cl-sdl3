@@ -1,7 +1,5 @@
 (in-package :sdl3-examples)
 
-(require :sdl3)
-
 (defun test-get-string-property (renderer props name)
   (let ((text (format nil "String prop: ~a" (sdl3:get-string-property props name ))))
     (sdl3:render-debug-text renderer 200.0 200.0 text)))
@@ -27,17 +25,12 @@
         ;; Set the vsync
         (sdl3:set-render-vsync renderer t)
 
-        (let ((props (sdl3:create-properties)))
-          (sdl3:set-string-property props "hello" "hello world")
-          (sdl3:set-boolean-property props "true-false" t)
-          (sdl3:set-float-property props "float-prop" 4.5)
-
-          (let ((all-props (sdl3:get-all-properties props)))
-            (format t "Properties: ~a~%" all-props)
-            (format t "Float: ~a~%" (gethash "float-prop" all-props)))
+        (let* ((props (sdl3:create-properties '(("hello" "hello world")
+                                                ("true-false" t)
+                                                ("float-prop" 4.5))))
+               (all-props (sdl3:get-all-properties props)))
 
           (format t "True/False: ~a~%" (sdl3:get-property-value props "true-false"))
-
           (sdl3:with-event-loop (:method :poll)
             (:key-down (:scancode scancode)
                        (when (sdl3:scancode= scancode :escape)

@@ -220,6 +220,7 @@
    ;; properties.lisp
    #:get-global-properties
    #:create-properties
+   #:with-properties
    #:copy-properties
    #:lock-properties
    #:unlock-properties

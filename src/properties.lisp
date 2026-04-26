@@ -1,12 +1,10 @@
 (in-package #:sdl3)
 
+(defvar *props-hash*)
+
 (defun get-global-properties ()
   "returns a valid property ID on success or 0 on failure"
   (check-zero (sdl-get-global-properties)))
-
-(defun create-properties ()
-  "Create a group of properties."
-  (check-zero (sdl-create-properties)))
 
 (defun copy-properties (src dst)
    "Copy all the properties from one group of properties to another, with the
@@ -82,6 +80,37 @@
   "Clear a property from a group of properties."
   (sdl-clear-property props name))
 
+(defun %set-property-value (props name value)
+  "Sets the property based on the type of VALUE."
+  (etypecase value
+    (string
+     (set-string-property props name value))
+    (boolean
+     (set-boolean-property props name value))
+    (float
+     (set-float-property props name value))
+    (rational
+     (set-float-property props name (float value)))
+    (number
+     (set-number-property props name value))
+    (cffi:foreign-pointer
+     (set-pointer-property props name value))))
+
+(defun create-properties (&optional initial-values)
+  "Create a group of properties."
+  (let ((properties (check-zero (sdl-create-properties))))
+    (mapc #'(lambda (x) (%set-property-value properties (car x) (cadr x))) initial-values)
+    properties))
+
+(defmacro with-properties ((properties-var &optional initial-values) &body body)
+  "Allocate and optionally initizlie with the INITIAL-VALUES and automatically
+ free an sdl properties group."
+  (let ((init-list (loop for (name value) in initial-values
+                         collect `(list ,name ,value))))
+    `(let ((,properties-var (create-properties (list ,@init-list))))
+       (unwind-protect (progn ,@body)
+         (destroy-properties ,properties-var)))))
+
 (defun get-property-value (props name &optional (default-value nil))
   "Get the value of a property by examining the property type."
   (ecase (get-property-type props name)
@@ -108,8 +137,6 @@
 function is called for each property in the group of properties. The properties
 are locked during enumeration."
   (sdl-enumerate-properties props callback userdata))
-
-(defvar *props-hash*)
 
 ;; The callback invoked when traversing the properties
 (autowrap:defcallback get-all-properties-cb :int ((user-data :pointer) (props sdl3-ffi:sdl-properties-id) (name (:pointer :char)))
