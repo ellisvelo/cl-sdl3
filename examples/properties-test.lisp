@@ -27,10 +27,9 @@
 
         (let* ((props (sdl3:create-properties '(("hello" "hello world")
                                                 ("true-false" t)
-                                                ("float-prop" 4.5))))
-               (all-props (sdl3:get-all-properties props)))
-
+                                                ("float-prop" 4.5)))))
           (format t "True/False: ~a~%" (sdl3:get-property-value props "true-false"))
+
           (sdl3:with-event-loop (:method :poll)
             (:key-down (:scancode scancode)
                        (when (sdl3:scancode= scancode :escape)
