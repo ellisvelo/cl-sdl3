@@ -265,7 +265,8 @@
    #:rect-empty
    #:rect-equals
    #:has-rect-intersection
-   #:rect-intersection
+   #:get-rect-intersection
+   #:get-rect-intersection-float
    #:has-rect-intersection-float-p
    #:rect-and-line-intersection
    #:rect-and-line-intersection-float

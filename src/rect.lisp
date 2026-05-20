@@ -275,17 +275,28 @@ to (make-rect 0 0 0 0).
               (return-from has-rect-intersection nil)))
   t)
 
-(defun rect-intersection (first-rect &rest rects)
-  "Return two values. The first one is T if the intersection of ALL rectangles
-results in a non-empty intersection. The second value is the SDL_Rect of the
-intersection rectangle. If an empty intersection is discovered, then NIL and an
-empty rectangle at the origin is returned. The second value is always a newly
-allocated SDL_Rect structure."
-  (let ((empty (make-rect 0 0 0 0))
-        (intersect (copy-rect first-rect)))
+(defun get-rect-intersection (first-rect &rest rects)
+  "Returns T if all rectangles share a mutual, non-empty overlapping region.
+The second value is a SINGLE, newly allocated SDL_Rect representing that total
+intersection.  The caller is responsible for freeing this single
+structure. Returns (values nil nil) on failure."
+  (let ((intersect (copy-rect first-rect)))
     (dolist (rect rects)
       (unless (sdl-true-p (sdl-get-rect-intersection rect intersect intersect))
-        (return-from rect-intersection (values nil empty))))
+        (return-from get-rect-intersection (progn (free-rect intersect)
+                                                  (values nil nil)))))
+    (values t intersect)))
+
+(defun get-rect-intersection-float (first-f-rect &rest f-rects)
+  "Returns T if all rectangles share a mutual, non-empty overlapping region.
+The second value is a SINGLE, newly allocated SDL_FRect representing that total
+intersection.  The caller is responsible for freeing this single
+structure. Returns (values nil nil) on failure."
+  (let ((intersect (copy-f-rect first-f-rect)))
+    (dolist (rect f-rects)
+      (unless (sdl-true-p (sdl-get-rect-intersection-float rect intersect intersect))
+        (return-from get-rect-intersection-float (progn (free-f-rect intersect)
+                                                        (values nil nil)))))
     (values t intersect)))
 
 (defun has-rect-intersection-float-p (first-rect &rest rects)
